@@ -91,3 +91,36 @@ This function captures whatever is drawn on the `Canvas` widget (`can_drawing`) 
 5. **Save the Image**: The `PIL` image, now a copy of the canvas content, is saved to the user’s chosen location and format.
 
 This approach ensures that the canvas content is accurately captured and saved as an image file, making it accessible outside of the Tkinter application.
+
+
+### **Function: `color_pallete()`**
+
+1. **Create Color Rectangles:**
+   - The function uses the `create_rectangle()` method from the `Canvas` widget (`colors`) to draw small colored rectangles on the screen. Each rectangle represents a different color option that the user can choose.
+   - The positions and sizes of the rectangles are defined by the coordinates passed to `create_rectangle((x1, y1, x2, y2), fill=color)`. For example, `(8, 8, 28, 28)` creates a rectangle that starts at the point `(8, 8)` and ends at `(28, 28)`.
+
+2. **Assign Colors to Rectangles:**
+   - Each rectangle is filled with a specific color using the `fill` attribute. For instance, `fill="black"` fills the first rectangle with black color.
+
+3. **Bind Click Events to Rectangles:**
+   - The function uses `tag_bind()` to attach an event to each rectangle. This event listens for a left mouse button click (`'<Button-1>'`) on the rectangle.
+   - When a rectangle is clicked, a lambda function is triggered, which calls the `show_color()` function with the specific color of the rectangle as its argument. This changes the current drawing color to the selected color.
+
+### **Example of a Color Selection:**
+
+- The first rectangle is black:
+  ```python
+  id = colors.create_rectangle((8, 8, 28, 28), fill="black")
+  colors.tag_bind(id, '<Button-1>', lambda x: show_color('black'))
+  ```
+  - This code creates a black rectangle. When the user clicks on this rectangle, the `show_color('black')` function is called, which sets the current drawing color to black.
+
+- The second rectangle is red:
+  ```python
+  id = colors.create_rectangle((8, 38, 28, 58), fill="Red")
+  colors.tag_bind(id, '<Button-1>', lambda x: show_color('Red'))
+  ```
+  - Similarly, this creates a red rectangle, and clicking on it changes the drawing color to red.
+
+### **Summary:**
+The `color_pallete()` function creates a vertical row of colored rectangles (representing different colors) on the left side of the application. Each rectangle is clickable, and clicking on one changes the current drawing color to that rectangle's color, allowing users to easily switch colors while drawing on the canvas.
