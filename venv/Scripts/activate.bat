@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=C:\Users\Samya Banerjee\uploded Github projects\Tkinter Final projects\Digital White Board APP\venv
+set VIRTUAL_ENV=C:\Users\Samya Banerjee\Digital White Board APP\venv
 
 if not defined PROMPT set PROMPT=$P$G
 

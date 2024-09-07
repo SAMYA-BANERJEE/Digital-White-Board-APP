@@ -64,36 +64,44 @@ def use_eraser():
 
 
 def color_pallete():
+        colours_pallate=['black','Red','Blue','Green','Yellow','Purple','Orange','Brown','Light Blue','Grey']
+        x1_y1_x2_y2=[(8,8,28,28),(8,38,28,58),(8,68,28,88),(8,98,28,118),(8,128,28,148),(8,158,28,178),(8,188,28,208),(8,218,28,238),(8,248,28,268),(8,278,28,298)]
 
-        id = colors.create_rectangle((8,8,28,28),fill="black")
-        colors.tag_bind(id, '<Button-1>',lambda x : show_color('black'))
+        # Using zip to access color and corresponding coordinates
+        for colour, coords in zip(colours_pallate, x1_y1_x2_y2):
 
-        id = colors.create_rectangle((8,38,28,58),fill="Red")
-        colors.tag_bind(id, '<Button-1>',lambda x : show_color('Red'))
+            id = colors.create_rectangle(coords,fill=colour)
+            colors.tag_bind(id, '<Button-1>', lambda x, c=colour: show_color(c))
 
-        id = colors.create_rectangle((8,68,28,88),fill="Blue")
-        colors.tag_bind(id, '<Button-1>',lambda x : show_color('Blue'))
+        # id = colors.create_rectangle((8,8,28,28),fill="black")
+        # colors.tag_bind(id, '<Button-1>',lambda x : show_color('black'))
 
-        id = colors.create_rectangle((8,98,28,118),fill="Green")
-        colors.tag_bind(id, '<Button-1>',lambda x : show_color('Green'))
+        # id = colors.create_rectangle((8,38,28,58),fill="Red")
+        # colors.tag_bind(id, '<Button-1>',lambda x : show_color('Red'))
 
-        id = colors.create_rectangle((8,128,28,148),fill="Yellow")
-        colors.tag_bind(id, '<Button-1>',lambda x : show_color('Yellow'))
+        # id = colors.create_rectangle((8,68,28,88),fill="Blue")
+        # colors.tag_bind(id, '<Button-1>',lambda x : show_color('Blue'))
 
-        id = colors.create_rectangle((8,158,28,178),fill="Purple")
-        colors.tag_bind(id, '<Button-1>',lambda x : show_color('Purple'))
+        # id = colors.create_rectangle((8,98,28,118),fill="Green")
+        # colors.tag_bind(id, '<Button-1>',lambda x : show_color('Green'))
 
-        id = colors.create_rectangle((8,188,28,208),fill="Orange")
-        colors.tag_bind(id, '<Button-1>',lambda x : show_color('Orange'))
+        # id = colors.create_rectangle((8,128,28,148),fill="Yellow")
+        # colors.tag_bind(id, '<Button-1>',lambda x : show_color('Yellow'))
 
-        id = colors.create_rectangle((8,218,28,238),fill="Brown")
-        colors.tag_bind(id, '<Button-1>',lambda x : show_color('Brown'))
+        # id = colors.create_rectangle((8,158,28,178),fill="Purple")
+        # colors.tag_bind(id, '<Button-1>',lambda x : show_color('Purple'))
 
-        id = colors.create_rectangle((8,248,28,268),fill="Light Blue")
-        colors.tag_bind(id, '<Button-1>',lambda x : show_color('Light Blue'))
+        # id = colors.create_rectangle((8,188,28,208),fill="Orange")
+        # colors.tag_bind(id, '<Button-1>',lambda x : show_color('Orange'))
 
-        id = colors.create_rectangle((8,278,28,298),fill="Gray")
-        colors.tag_bind(id, '<Button-1>',lambda x : show_color('Gray'))
+        # id = colors.create_rectangle((8,218,28,238),fill="Brown")
+        # colors.tag_bind(id, '<Button-1>',lambda x : show_color('Brown'))
+
+        # id = colors.create_rectangle((8,248,28,268),fill="Light Blue")
+        # colors.tag_bind(id, '<Button-1>',lambda x : show_color('Light Blue'))
+
+        # id = colors.create_rectangle((8,278,28,298),fill="Gray")
+        # colors.tag_bind(id, '<Button-1>',lambda x : show_color('Gray'))
 
 ###### The main GUI window:
 if __name__ == '__main__':
@@ -107,20 +115,14 @@ if __name__ == '__main__':
     # icon:
     icon_image=os.path.join(os.path.dirname(__file__), 'white_board.ico')
     root.wm_iconbitmap(icon_image)
-    
-
-    #left- frame:------
-    f1=Frame(root,width=100)
-    f1.pack(side=LEFT,fill=Y)
-
-
+   
     # color box:
     bar_image=os.path.join(os.path.dirname(__file__), 'new_bar.png')
     color_box=PhotoImage(file=bar_image)
-    Label(f1,image=color_box,bg="#f2f3f5").place(x=0,y=20)
+    Label(root,image=color_box,bg="#f2f3f5").place(x=0,y=20)
     
     #canvas-menu_button:
-    menu_button = Canvas(f1, width=30, height=30, bg="#f2f3f5", highlightthickness=0)
+    menu_button = Canvas(root, width=30, height=30, bg="#f2f3f5", highlightthickness=0)
     menu_button.place(x=70, y=5)
     
     # Draw three small horizontal lines to represent the 3-dot menu
@@ -131,22 +133,22 @@ if __name__ == '__main__':
     # Bind the click event to the Canvas
     menu_button.bind("<Button-1>", menu_click)
 
-    main_menu= Menu(f1,tearoff=False)
+    main_menu= Menu(root,tearoff=False)
     main_menu.add_command(label=" Save As ",background="light blue",font="arial 10 bold",command=save_canvas)
     main_menu.add_command(label=" Clear Screen ",background="sky blue",font="arial 10 bold",command=new_canvas)
     
     #color trey:
-    colors=Canvas(f1,bg="snow2",width=33,height=300,bd=0)
+    colors=Canvas(root,bg="snow2",width=33,height=300,bd=0)
     colors.place(x=36,y=70)
 
     #eraser photo:
     eraser_image=os.path.join(os.path.dirname(__file__), 'color_eraser_2.png')
     ereser=PhotoImage(file=eraser_image)
-    Button(f1,image=ereser,bg="#f2f3f5",relief=RAISED, command=use_eraser).place(x=36,y=400)
+    Button(root,image=ereser,bg="#f2f3f5",relief=RAISED, command=use_eraser).place(x=36,y=400)
 
     #canvas - body:
     can_drawing=Canvas(root,height=500,width=950,background="white",cursor="hand2")
-    can_drawing.pack(side=TOP)
+    can_drawing.pack(anchor="se")
 
     can_drawing.bind("<Button-1>",locate_xy)
     can_drawing.bind("<B1-Motion>",add_line)
@@ -160,7 +162,7 @@ if __name__ == '__main__':
     
     current_value = DoubleVar()
 
-    slider=Scale(root,from_=0,to=100,orient=HORIZONTAL,command=slider_value,variable=current_value,activebackground='Light Blue',background='Light Blue',relief=GROOVE,state=ACTIVE,length=350)
+    slider=ttk.Scale(root,from_=0,to=100,orient=HORIZONTAL,command=slider_value,variable=current_value,length=350,style='Horizontal.TScale')
     slider.place(x=100,y=520)
     
     #value label
